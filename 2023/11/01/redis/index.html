@@ -1,0 +1,940 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/default.png">
+  <link rel="icon" href="/img/default.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f415400">
+  <meta name="author" content="YMXL">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Redis学习 Redis诞生于2009年，全称Remote Dictionary Server\color{red}Re\color{black}mote\ \color{red}Di\color{black}ctionary\ \color{red}S\color{black}erverRemote Dictionary Server，远程词典服务，是一个基于内存的键值型NoSQL数据库。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis学习">
+<meta property="og:url" content="http://ymxl0823.github.io/2023/11/01/redis/index.html">
+<meta property="og:site_name" content="YMXL_BLOG">
+<meta property="og:description" content="Redis学习 Redis诞生于2009年，全称Remote Dictionary Server\color{red}Re\color{black}mote\ \color{red}Di\color{black}ctionary\ \color{red}S\color{black}erverRemote Dictionary Server，远程词典服务，是一个基于内存的键值型NoSQL数据库。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202310250952128.png">
+<meta property="og:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202310250959832.png">
+<meta property="og:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202310251004611.png">
+<meta property="og:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202310251005843.png">
+<meta property="og:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202310251009041.png">
+<meta property="og:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202311012243873.png">
+<meta property="og:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202311012243045.png">
+<meta property="og:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202311030914396.png">
+<meta property="og:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202311051618547.png">
+<meta property="og:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202311051625395.png">
+<meta property="og:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202311052116311.png">
+<meta property="og:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202311052134922.png">
+<meta property="og:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202311052137186.png">
+<meta property="og:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202311052142361.png">
+<meta property="og:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202311052146774.png">
+<meta property="og:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202311052148862.png">
+<meta property="article:published_time" content="2023-11-01T14:11:19.000Z">
+<meta property="article:modified_time" content="2023-11-18T13:07:18.648Z">
+<meta property="article:author" content="YMXL">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202310250952128.png">
+  
+  <meta name="referrer" content="no-referrer">
+  <!--  -->
+  
+  <title>Redis学习 - YMXL_BLOG</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ymxl0823.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>YMXL</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Redis学习"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-11-01 22:11" pubdate>
+          2023年11月1日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          68 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Redis学习</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年11月18日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="redis学习"><a class="markdownIt-Anchor" href="#redis学习"></a> Redis学习</h1>
+<p><strong>Redis诞生于2009年，全称<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle mathcolor="red"><mi>R</mi><mi>e</mi><mstyle mathcolor="black"><mi>m</mi><mi>o</mi><mi>t</mi><mi>e</mi><mtext> </mtext><mstyle mathcolor="red"><mi>D</mi><mi>i</mi><mstyle mathcolor="black"><mi>c</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mi>a</mi><mi>r</mi><mi>y</mi><mtext> </mtext><mstyle mathcolor="red"><mi>S</mi><mstyle mathcolor="black"><mi>e</mi><mi>r</mi><mi>v</mi><mi>e</mi><mi>r</mi></mstyle></mstyle></mstyle></mstyle></mstyle></mstyle></mrow><annotation encoding="application/x-tex">\color{red}Re\color{black}mote\ \color{red}Di\color{black}ctionary\ \color{red}S\color{black}erver</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;color:red;">R</span><span class="mord mathnormal" style="color:red;">e</span><span class="mord mathnormal" style="color:black;">m</span><span class="mord mathnormal" style="color:black;">o</span><span class="mord mathnormal" style="color:black;">t</span><span class="mord mathnormal" style="color:black;">e</span><span class="mspace" style="color:black;"><span style="color:black;"> </span></span><span class="mord mathnormal" style="margin-right:0.02778em;color:red;">D</span><span class="mord mathnormal" style="color:red;">i</span><span class="mord mathnormal" style="color:black;">c</span><span class="mord mathnormal" style="color:black;">t</span><span class="mord mathnormal" style="color:black;">i</span><span class="mord mathnormal" style="color:black;">o</span><span class="mord mathnormal" style="color:black;">n</span><span class="mord mathnormal" style="color:black;">a</span><span class="mord mathnormal" style="margin-right:0.02778em;color:black;">r</span><span class="mord mathnormal" style="margin-right:0.03588em;color:black;">y</span><span class="mspace" style="color:black;"><span style="color:black;"> </span></span><span class="mord mathnormal" style="margin-right:0.05764em;color:red;">S</span><span class="mord mathnormal" style="color:black;">e</span><span class="mord mathnormal" style="margin-right:0.02778em;color:black;">r</span><span class="mord mathnormal" style="margin-right:0.03588em;color:black;">v</span><span class="mord mathnormal" style="color:black;">e</span><span class="mord mathnormal" style="margin-right:0.02778em;color:black;">r</span></span></span></span>，远程词典服务，是一个基于内存的键值型NoSQL数据库。</strong></p>
+<p><a target="_blank" rel="noopener" href="https://redis.io">https://redis.io</a></p>
+<p><strong>特征：</strong></p>
+<ul>
+<li>
+<p>键值（key-value）型，value支持多种不同数据结构，功能丰富</p>
+</li>
+<li>
+<p>单线程，每个命令具备原子性</p>
+</li>
+<li>
+<p>低延迟，速度快（基于内存、IO多路复用、良好的编码）</p>
+</li>
+<li>
+<p>支持数据持久化</p>
+</li>
+<li>
+<p>支持主从集群、分片集群</p>
+</li>
+<li>
+<p>支持多语言客户端</p>
+</li>
+</ul>
+<h2 id="redis通用命令"><a class="markdownIt-Anchor" href="#redis通用命令"></a> Redis通用命令</h2>
+<p>通用命令就是部分数据类型都可以使用的命令，通过<code>help [command]</code>可以一个命令的具体用法，例如：</p>
+<p><img src="https://gitee.com/ymxl0823/blogimg/raw/master/img/202310250952128.png" srcset="/img/loading.gif" lazyload alt="image-20231025095236032" /></p>
+<p>常见有：</p>
+<ul>
+<li>
+<p>KEYS：查看符合模板的所有key，因为是模糊查询，数据量大时就会很慢，所以不建议在生产环境设备去使用</p>
+<p>这个模板其实正则类似，具有通配符。<code>?</code>匹配一个字符，<code>*</code>匹配多个，<code>[ab]</code>只匹配a或b，<code>[^e]</code>不匹配e，<code>[a-c]</code>匹配a到c之间的字符（包含端点），用<code>\</code>来规避特殊字符。</p>
+<p><img src="https://gitee.com/ymxl0823/blogimg/raw/master/img/202310250959832.png" srcset="/img/loading.gif" lazyload alt="image-20231025095918786" /></p>
+</li>
+<li>
+<p>DEL：删除指定的key，可以删一个，也可以删多个</p>
+<p><img src="https://gitee.com/ymxl0823/blogimg/raw/master/img/202310251004611.png" srcset="/img/loading.gif" lazyload alt="image-20231025100433587" /></p>
+</li>
+<li>
+<p>EXiSTS：判断key是否存在</p>
+<p><img src="https://gitee.com/ymxl0823/blogimg/raw/master/img/202310251005843.png" srcset="/img/loading.gif" lazyload alt="image-20231025100547820" /></p>
+</li>
+<li>
+<p>EXPIRE：给一个key设置有效期，有效期到期该key会被自动删除</p>
+</li>
+<li>
+<p>TTL：查看一个key的剩余有效期。<code>正数</code>代表剩余有效时间，<code>-2</code>代表已经过期，<code>-1</code>代表永久有效。创建key时，都是默认永久有效</p>
+<p><img src="https://gitee.com/ymxl0823/blogimg/raw/master/img/202310251009041.png" srcset="/img/loading.gif" lazyload alt="image-20231025100916016" /></p>
+</li>
+</ul>
+<h2 id="redis数据结构以及操作它们的命令"><a class="markdownIt-Anchor" href="#redis数据结构以及操作它们的命令"></a> Redis数据结构以及操作它们的命令</h2>
+<p>Redis是一个key-value的数据库，key一般是String类型，不过value的类型是多种多样</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td>hello world</td>
+<td>字符串，基本类型</td>
+</tr>
+<tr>
+<td>Hash</td>
+<td>{name : &quot;jack&quot; , age : 12}</td>
+<td>哈希表，基本类型</td>
+</tr>
+<tr>
+<td>List</td>
+<td>[a -&gt; b -&gt; c -&gt; d]</td>
+<td>链表，基本类型</td>
+</tr>
+<tr>
+<td>Set</td>
+<td>{a, b, c}</td>
+<td>无序集合，基本类型</td>
+</tr>
+<tr>
+<td>SortedSet</td>
+<td>{a : 1, b : 2, c : 3}</td>
+<td>有序集合，基本类型</td>
+</tr>
+<tr>
+<td>GEO</td>
+<td>{A : {120.3, 30.5} }</td>
+<td>地理坐标特殊类型</td>
+</tr>
+<tr>
+<td>BitMap</td>
+<td>0110110101110101011</td>
+<td>特殊类型</td>
+</tr>
+<tr>
+<td>HyperLog</td>
+<td>0110110101110101011</td>
+<td>特殊类型</td>
+</tr>
+<tr>
+<td>.......</td>
+<td>.......</td>
+<td>.......</td>
+</tr>
+</tbody>
+</table>
+<p>操作这些数据的命令可以在<a target="_blank" rel="noopener" href="https://redis.io/commands">官网</a>查看，也可以通过<code>help @&lt;group&gt;</code>查看</p>
+<p>例如：<code>help @String</code>可以查看和String类型相关的命令</p>
+<h3 id="key的层级格式"><a class="markdownIt-Anchor" href="#key的层级格式"></a> key的层级格式</h3>
+<h4 id="key的结构"><a class="markdownIt-Anchor" href="#key的结构"></a> key的结构</h4>
+<p>Redis的key允许多个单词形成层级结构，多个单词之间用<code>:</code>隔开，格式如下：</p>
+<p><code>项目名:业务名:类型:id</code></p>
+<p>这个格式并非固定，也可以根据自己的需求来删除或添加词条。</p>
+<p>例如：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs txt">和user相关的key baidu:user:1<br>和article相关的key  baidu:article:1<br></code></pre></td></tr></table></figure>
+<p>如果Value是一个java对象，例如一个User对象，则可以将对象序列化为JSON字符串后存储</p>
+<h3 id="string类型"><a class="markdownIt-Anchor" href="#string类型"></a> String类型</h3>
+<p>字符串类型,Redis中最简单的数据类型。其value虽然都是字符串，不过根据字符串的格式不同，又可以分为3类：</p>
+<ul>
+<li>string：普通字符串</li>
+<li>int：整数类型，可以做自增、自减操作</li>
+<li>float：浮点类型，可以做自增、自减操作</li>
+</ul>
+<p>它们的底层都是字节数组形式存储，只不过编码方式不同，字符串类型的最大空间不能超过512MB</p>
+<h4 id="string类型的常见命令"><a class="markdownIt-Anchor" href="#string类型的常见命令"></a> String类型的常见命令：</h4>
+<ul>
+<li>SET：添加或者修改已经存在的一个String类型的键值对</li>
+<li>GET：根据key获取String类型的value</li>
+<li>MSET：批量添加多个String类型 的value</li>
+<li>MGET：根据多个key获取多个String类型的value</li>
+<li>INCR：让一个整型的key自增1</li>
+<li>INCRBY：让一个整型的key自增并指定步长</li>
+<li>INCRBYFLOAT：让一个浮点型的key自增并指定步长</li>
+<li>SETNX：添加一个String类型的键值对，前提是这个key不存在，否则不执行</li>
+<li>SETEX：添加一个String类型的键值对，并且指定有效期</li>
+</ul>
+<h3 id="hash类型"><a class="markdownIt-Anchor" href="#hash类型"></a> Hash类型</h3>
+<p>hash类型，也叫散列，其value是一个无序字典，类似Java中HashMap结构</p>
+<p>String 结构是将对象序列化为JSON后存储，当需要修改对象某个字段时很不方便：</p>
+<p><img src="https://gitee.com/ymxl0823/blogimg/raw/master/img/202311012243873.png" srcset="/img/loading.gif" lazyload alt="image-20231101224259784" /></p>
+<p>Hash结构可以将对象中的每个字段独立存储，可以针对单个字段作CRUD:</p>
+<p><img src="https://gitee.com/ymxl0823/blogimg/raw/master/img/202311012243045.png" srcset="/img/loading.gif" lazyload alt="image-20231101224312908" /></p>
+<h4 id="hash类型的常见命令"><a class="markdownIt-Anchor" href="#hash类型的常见命令"></a> Hash类型的常见命令</h4>
+<ul>
+<li><code>HSET key field value</code>：添加或者修改hash类型key的field的值</li>
+<li><code>HGET key field</code>：获取一个hash类型key的field的值</li>
+<li><code>HMSET</code>：批量添加一个hash类型的多个key的field的值</li>
+<li><code>HMGET</code>：批量获取一个hash类型的多个key的field的值</li>
+<li><code>HGETALL</code>：获取一个hash类型key的全部field的值</li>
+<li><code>HKEYS</code>：获取一个hash类型key的所有field</li>
+<li><code>HVALS</code>：获取一个hash类型key的所有的value</li>
+<li><code>HINCRBY</code>：让一个hash类型key的字段值自增并指定步长</li>
+<li><code>HSETNX</code>：添加一个hash类型key的field的值，前提是这个field不存在，否则不执行</li>
+</ul>
+<h3 id="list类型"><a class="markdownIt-Anchor" href="#list类型"></a> List类型</h3>
+<p>Redis中的List类型与Java中的LinkedList类似，可以看做是一个双向链表结构，既可以支持正向检索也可以支持反向检索。特征也和LinkedList类似：</p>
+<ul>
+<li>有序</li>
+<li>元素可以重复</li>
+<li>插入和删除快</li>
+<li>查询速度一般</li>
+</ul>
+<h4 id="list类型的常见命令"><a class="markdownIt-Anchor" href="#list类型的常见命令"></a> List类型的常见命令</h4>
+<ul>
+<li><code>LPUSH key element...</code>：向列表左边插入一个或多个元素</li>
+<li><code>LPOP key </code>：移除并返回列表左侧的第一个元素，没有则返回<code>nil</code></li>
+<li><code>RPUSH key element...</code>：向列表右边插入一个或多个元素</li>
+<li><code>RPOP key</code>：移除并返回列表左侧的第一个元素，没有则返回<code>nil</code></li>
+<li><code>LRANGE key star end</code>：返回一段角标内的所有元素
+<ul>
+<li><code>BLPOP</code>和<code>BRPOP</code>：与<code>LPOP</code>和<code>RPOP</code>类似，只不过在没有元素时等待指定时间，而不是直接返回<code>nil</code></li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/ymxl0823/blogimg/raw/master/img/202311030914396.png" srcset="/img/loading.gif" lazyload alt="image-20231103091443365" /></p>
+<h3 id="set类型"><a class="markdownIt-Anchor" href="#set类型"></a> Set类型</h3>
+<p>Redis的Set结构与Java中的HashSet类似，可以看作一个value为null的HashMap，因为也是一个hash表，因此具备和HashSet类似的特征：</p>
+<ul>
+<li>无序</li>
+<li>元素不可重复</li>
+<li>查找快</li>
+<li>支持交集、并集、差集等功能</li>
+</ul>
+<h4 id="set类型的常见命令"><a class="markdownIt-Anchor" href="#set类型的常见命令"></a> Set类型的常见命令</h4>
+<ul>
+<li><code>SADD key member...</code>： 向set中添加一个或多个元素</li>
+<li><code>SREM key member...</code>：移除set中的指定元素</li>
+<li><code>SCARD key</code>：返回set中元素的个数</li>
+<li><code>SISMEMBER key member</code>：判断一个元素是否存在于set中</li>
+<li><code>SMEMEBERS</code>：获取set中的所有元素</li>
+<li><code>SINTER key1 key2...</code>：求key1集合与key2的交集</li>
+<li><code>SDFF key1 key2...</code>：求key1与key2的差集</li>
+<li><code>SUNION key1 key2...</code>：求key1与key2的并集</li>
+</ul>
+<h3 id="sortedset类型"><a class="markdownIt-Anchor" href="#sortedset类型"></a> SortedSet类型</h3>
+<p>Redis的SortedSet是一个可排序的Set集合，与Java中的TreeSet有些类似，但底层数据结构却差别很大。SortedSet中的每一个元素都带有一个score属性，可以基于score属性对元排序，底层的实现是一个跳表(SkipList)加hash表。</p>
+<p>SortedSet具备下列特性：</p>
+<ul>
+<li>可排序</li>
+<li>元素不重复</li>
+<li>查询速度快</li>
+</ul>
+<p>因为SortedSet的可排序特性，经常被用来实现排行榜这样的功能。</p>
+<h4 id="sortedset的常见类型"><a class="markdownIt-Anchor" href="#sortedset的常见类型"></a> SortedSet的常见类型</h4>
+<ul>
+<li><code>ZADD key score member</code>：添加一个或多个元素到SortedSet中，如果已经存在则更新其score值</li>
+<li><code>ZREM key member</code>：删除SortedSet中的指定元素</li>
+<li><code>ZSCORE key member</code>：获取SortedSet中的指定元素的score值</li>
+<li><code>ZRANK key member</code>：获取SortedSet中的指定元素的排名</li>
+<li><code>ZCARD key</code>：获取SortedSet中的元素个数</li>
+<li><code>ZCOUNT key min max</code>： 统计score值在指定范围内的所有元素个数</li>
+<li><code>ZINCRBY key increment member</code>：让SortedSet中的指定元素自增，步长为<code>increment</code>的值</li>
+<li><code>ZRANGE key min max</code>：按照score排序后，获取指定score范围内的元素</li>
+<li><code>ZRANGEBYSCORE key min max </code>：按照score排序后，获取指定score范围内的元素</li>
+<li><code>ZDFF、ZINTER、ZUNION</code>：求差集、交集、并集</li>
+</ul>
+<p>注意：所有的排名默认都是升序，如果要降序则在命令的Z后添加REV即可。</p>
+<h2 id="redis的java客户端"><a class="markdownIt-Anchor" href="#redis的java客户端"></a> Redis的java客户端</h2>
+<p>在Redis官网中提供了各种语言的客户端，地址：<a target="_blank" rel="noopener" href="https://redis.io/clients">https://redis.io/clients</a></p>
+<p><img src="https://gitee.com/ymxl0823/blogimg/raw/master/img/202311051618547.png" srcset="/img/loading.gif" lazyload alt="image-20231105161814429" /></p>
+<h4 id="redis中的java客户端"><a class="markdownIt-Anchor" href="#redis中的java客户端"></a> Redis中的java客户端</h4>
+<p><img src="https://gitee.com/ymxl0823/blogimg/raw/master/img/202311051625395.png" srcset="/img/loading.gif" lazyload alt="image-20231105162525337" /></p>
+<h4 id="jedis"><a class="markdownIt-Anchor" href="#jedis"></a> Jedis</h4>
+<p>Jedis的官网地址：<a target="_blank" rel="noopener" href="https://github.com/redis.jedis">https://github.com/redis.jedis</a></p>
+<p>1.引入依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>redis.clients<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jedis<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.7.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>2.建立连接</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> Jedis jedis;<br><span class="hljs-comment">//1.建立连接</span><br>jedis = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Jedis</span>(<span class="hljs-string">&quot;127.0.0.1&quot;</span>,<span class="hljs-number">6379</span>);<br><span class="hljs-comment">//2.设置密码</span><br>jedis.auth(<span class="hljs-string">&quot;redispassword&quot;</span>);<br><span class="hljs-comment">//3.选择库</span><br>jedis.select(<span class="hljs-number">0</span>);<br></code></pre></td></tr></table></figure>
+<p>3.测试String</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"> <span class="hljs-meta">@Test</span><br><span class="hljs-keyword">void</span> <span class="hljs-title function_">testString</span><span class="hljs-params">()</span> &#123;<br>     <span class="hljs-comment">//操作String类型</span><br>     <span class="hljs-type">String</span> <span class="hljs-variable">res</span> <span class="hljs-operator">=</span> jedis.set(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;ymxl&quot;</span>);<br>     System.out.println(<span class="hljs-string">&quot;res = &quot;</span> + res);<br><br>     <span class="hljs-type">String</span> <span class="hljs-variable">name</span> <span class="hljs-operator">=</span> jedis.get(<span class="hljs-string">&quot;name&quot;</span>);<br>     System.out.println(<span class="hljs-string">&quot;name = &quot;</span> + name);<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>4.释放资源</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span>(jedis != <span class="hljs-literal">null</span>) &#123;<br>    jedis.close();<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="jedis连接池"><a class="markdownIt-Anchor" href="#jedis连接池"></a> Jedis连接池</h4>
+<p>Jedis本身是线程不安全的，并且频繁的创建和销毁连接会有性能损耗，因此我们推荐大家使用jedis连接池代替jedis的直连方式。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.lxg;<br><br><span class="hljs-keyword">import</span> redis.clients.jedis.Jedis;<br><span class="hljs-keyword">import</span> redis.clients.jedis.JedisPool;<br><span class="hljs-keyword">import</span> redis.clients.jedis.JedisPoolConfig;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JedisConnectionFactory</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> JedisPool jedisPool;<br>    <span class="hljs-keyword">static</span> &#123;<br>        <span class="hljs-type">JedisPoolConfig</span> <span class="hljs-variable">poolConfig</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">JedisPoolConfig</span>();<br>        <span class="hljs-comment">//最大连接</span><br>        poolConfig.setMaxTotal(<span class="hljs-number">8</span>);<br>        <span class="hljs-comment">//最大空闲连接</span><br>        poolConfig.setMaxIdle(<span class="hljs-number">8</span>);<br>        <span class="hljs-comment">//最小空闲连接</span><br>        poolConfig.setMinIdle(<span class="hljs-number">0</span>);<br>        <span class="hljs-comment">//设置最长等待时间,ms</span><br>        poolConfig.setMaxWaitMillis(<span class="hljs-number">200</span>);<br>        jedisPool = <span class="hljs-keyword">new</span> <span class="hljs-title class_">JedisPool</span>(poolConfig,<span class="hljs-string">&quot;127.0.0.1&quot;</span>, <span class="hljs-number">6379</span>,<span class="hljs-number">1000</span>,<span class="hljs-string">&quot;redispassword&quot;</span>);<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Jedis <span class="hljs-title function_">getJedis</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> jedisPool.getResource();<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>如果是使用springboot整合的话，上边的相关设置，直接写在配置文件中即可</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">data:</span><br>    <span class="hljs-attr">redis:</span><br>      <span class="hljs-attr">jedis:</span><br>        <span class="hljs-attr">pool:</span><br>          <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span><br>          <span class="hljs-attr">max-active:</span> <span class="hljs-number">8</span><br>          <span class="hljs-attr">max-idle:</span> <span class="hljs-number">8</span><br>          <span class="hljs-attr">min-idle:</span> <span class="hljs-number">0</span><br>          <span class="hljs-attr">max-wait:</span> <span class="hljs-number">200</span><br>      <span class="hljs-attr">host:</span> <span class="hljs-number">118.31</span><span class="hljs-number">.33</span><span class="hljs-number">.161</span><br>      <span class="hljs-attr">password:</span> <span class="hljs-string">1923403646redis</span><br>      <span class="hljs-attr">port:</span> <span class="hljs-number">6379</span><br>      <span class="hljs-attr">connect-timeout:</span> <span class="hljs-number">2000</span><br></code></pre></td></tr></table></figure>
+<p>然后创建JedisConfig配置类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.lxg.config;<br><br><span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Value;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Bean;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Configuration;<br><span class="hljs-keyword">import</span> redis.clients.jedis.Jedis;<br><span class="hljs-keyword">import</span> redis.clients.jedis.JedisPool;<br><span class="hljs-keyword">import</span> redis.clients.jedis.JedisPoolConfig;<br><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JedisConfig</span> &#123;<br>    <span class="hljs-meta">@Value(&quot;$&#123;spring.data.redis.host&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> String host;<br><br>    <span class="hljs-meta">@Value(&quot;$&#123;spring.data.redis.port&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> port;<br><br>    <span class="hljs-meta">@Value(&quot;$&#123;spring.data.redis.password&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> String password;<br>    <span class="hljs-meta">@Value(&quot;$&#123;spring.data.redis.connect-timeout&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> timeout;<br><br>    <span class="hljs-meta">@Value(&quot;$&#123;spring.data.redis.jedis.pool.max-active&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> maxActive;<br><br>    <span class="hljs-meta">@Value(&quot;$&#123;spring.data.redis.jedis.pool.max-idle&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> maxIdle;<br><br>    <span class="hljs-meta">@Value(&quot;$&#123;spring.data.redis.jedis.pool.min-idle&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> minIdle;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> JedisPool <span class="hljs-title function_">jedisPool</span><span class="hljs-params">()</span>&#123;<br>        JedisPoolConfig jedisPoolConfig=<span class="hljs-keyword">new</span> <span class="hljs-title class_">JedisPoolConfig</span>();<br>        jedisPoolConfig.setMaxIdle(maxIdle);<br>        jedisPoolConfig.setMinIdle(minIdle);<br>        jedisPoolConfig.setMaxTotal(maxActive);<br><br>        JedisPool jedisPool;<br>        jedisPool = <span class="hljs-keyword">new</span> <span class="hljs-title class_">JedisPool</span>(jedisPoolConfig,host,port,timeout,password);<br>        <span class="hljs-keyword">return</span> jedisPool;<br>    &#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Resource</span><br>   <span class="hljs-keyword">private</span> JedisPool jedisPool;<br>   <span class="hljs-meta">@Test</span><br>   <span class="hljs-keyword">void</span> <span class="hljs-title function_">testJedisPool</span><span class="hljs-params">()</span> &#123;<br>       jedis = jedisPool.getResource();<br>       <span class="hljs-comment">//操作String类型</span><br>       <span class="hljs-type">String</span> <span class="hljs-variable">res</span> <span class="hljs-operator">=</span> jedis.set(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;ymxl&quot;</span>);<br>       System.out.println(<span class="hljs-string">&quot;res = &quot;</span> + res);<br><br>       <span class="hljs-type">String</span> <span class="hljs-variable">name</span> <span class="hljs-operator">=</span> jedis.get(<span class="hljs-string">&quot;name&quot;</span>);<br>       System.out.println(<span class="hljs-string">&quot;name = &quot;</span> + name);<br>   &#125;<br></code></pre></td></tr></table></figure>
+<h4 id="spring-data-redis"><a class="markdownIt-Anchor" href="#spring-data-redis"></a> Spring-Data-Redis</h4>
+<p>SpringData是Spring中数据操作的模块，包含对各种数据库的集成，其中对Redis的集成模块就叫做SpringDataRedis，官网网址：<a target="_blank" rel="noopener" href="https://spring.io/projects/spring-data-redis">https://spring.io/projects/spring-data-redis</a></p>
+<ul>
+<li>提供了对不同Redis客户端的整合（Lettuce和Jedis）</li>
+<li>提供了RedisTemplate统一API来操作Redis</li>
+<li>支持Redis的发布订阅模型</li>
+<li>支持Redis的哨兵和Redis集群</li>
+<li>支持基于JDK,JSON，字符串，Spring对象的数据序列化以及反序列化</li>
+<li>支持基于Redis的JDKCollection实现</li>
+</ul>
+<h5 id="springdataredis快速入门"><a class="markdownIt-Anchor" href="#springdataredis快速入门"></a> SpringDataRedis快速入门</h5>
+<p><img src="https://gitee.com/ymxl0823/blogimg/raw/master/img/202311052116311.png" srcset="/img/loading.gif" lazyload alt="image-20231105211450049" /></p>
+<p>SpringBoot已经提供了对SpringDataRedis的支持，使用非常简单：</p>
+<p>1.依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-comment">&lt;!--连接池依赖--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.commons<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>commons-pool2<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>配置</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">data:</span><br>    <span class="hljs-attr">redis:</span><br>      <span class="hljs-attr">connect-timeout:</span> <span class="hljs-number">2000</span><br>      <span class="hljs-attr">host:</span> <span class="hljs-number">118.31</span><span class="hljs-number">.33</span><span class="hljs-number">.161</span><br>      <span class="hljs-attr">port:</span> <span class="hljs-number">6379</span><br>      <span class="hljs-attr">password:</span> <span class="hljs-string">1923403646redis</span><br>      <span class="hljs-attr">lettuce:</span><br>        <span class="hljs-attr">pool:</span><br>          <span class="hljs-attr">max-idle:</span> <span class="hljs-number">8</span><br>          <span class="hljs-attr">max-active:</span> <span class="hljs-number">8</span><br>          <span class="hljs-attr">min-idle:</span> <span class="hljs-number">1</span><br>          <span class="hljs-attr">time-between-eviction-runs:</span> <span class="hljs-string">10s</span><br><br><br></code></pre></td></tr></table></figure>
+<p>使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"> <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> RedisTemplate redisTemplate; <br><span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">testRedis</span><span class="hljs-params">()</span> &#123;<br>        redisTemplate.opsForValue().set(<span class="hljs-string">&quot;name&quot;</span>,<span class="hljs-string">&quot;ymxl&quot;</span>);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">name</span> <span class="hljs-operator">=</span> (String) redisTemplate.opsForValue().get(<span class="hljs-string">&quot;name&quot;</span>);<br>        System.out.println(name);<br>    &#125;<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/ymxl0823/blogimg/raw/master/img/202311052134922.png" srcset="/img/loading.gif" lazyload alt="image-20231105213407764" /></p>
+<p><strong><img src="https://gitee.com/ymxl0823/blogimg/raw/master/img/202311052137186.png" srcset="/img/loading.gif" lazyload alt="image-20231105213711055" /></strong></p>
+<p>使用json序列化时需要jackson的依赖，但平时开发时，不需要自己导入，因为springMvc自带了jackson依赖。</p>
+<h5 id="stringredistemplate"><a class="markdownIt-Anchor" href="#stringredistemplate"></a> StringRedisTemplate</h5>
+<p><img src="https://gitee.com/ymxl0823/blogimg/raw/master/img/202311052142361.png" srcset="/img/loading.gif" lazyload alt="image-20231105214207280" /></p>
+<p>为了节省内存空间，我们并不会使用JSON序列化器来处理value,而是统一使用String序列化器，要求只能存储String类型的key和value。当只需要存储Java对象时，手动完成对象序列化和反序列化。</p>
+<p><img src="https://gitee.com/ymxl0823/blogimg/raw/master/img/202311052146774.png" srcset="/img/loading.gif" lazyload alt="image-20231105214628704" /></p>
+<p>而Spring默认提供了一个StringRedisTemplate类，它的key和value的序列化方式默认就是String方式。省去了我们自定义RedisTemplate的过程</p>
+<p><img src="https://gitee.com/ymxl0823/blogimg/raw/master/img/202311052148862.png" srcset="/img/loading.gif" lazyload alt="image-20231105214857790" /></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/NOSQL/" class="category-chain-item">NOSQL</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Redis/" class="print-no-link">#Redis</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Redis学习</div>
+      <div>http://ymxl0823.github.io/2023/11/01/redis/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>YMXL</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年11月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/11/01/%E5%AE%89%E8%A3%85Redis(centos%207)/" title="Redis在CentOs7上的安装教程">
+                        <span class="hidden-mobile">Redis在CentOs7上的安装教程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

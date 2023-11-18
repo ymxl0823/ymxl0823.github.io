@@ -1,0 +1,1063 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/default.png">
+  <link rel="icon" href="/img/default.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f415400">
+  <meta name="author" content="YMXL">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="SQL(Struct Query Language)   结构化查询语言   可单行或多行书写，以分号结尾   MYSQL 数据库的SQL语句不区分大小写，关键字建议大写   注释   单行注释： 1-- 注释内容(注意有空格) 或 #注释内容(MySql特有)   多行注释 1&#x2F;*这是多行注释*&#x2F;      DDL(数据定义语言)   操作数据库和表   查询 123SHOW DATABASE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL笔记">
+<meta property="og:url" content="http://ymxl0823.github.io/2023/04/27/SQL%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="YMXL_BLOG">
+<meta property="og:description" content="SQL(Struct Query Language)   结构化查询语言   可单行或多行书写，以分号结尾   MYSQL 数据库的SQL语句不区分大小写，关键字建议大写   注释   单行注释： 1-- 注释内容(注意有空格) 或 #注释内容(MySql特有)   多行注释 1&#x2F;*这是多行注释*&#x2F;      DDL(数据定义语言)   操作数据库和表   查询 123SHOW DATABASE">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202307131353888.png">
+<meta property="og:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202307131354141.png">
+<meta property="og:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202307131355182.png">
+<meta property="og:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202307131403257.png">
+<meta property="og:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202307131403184.png">
+<meta property="article:published_time" content="2023-04-27T14:15:52.000Z">
+<meta property="article:modified_time" content="2023-07-13T06:18:36.688Z">
+<meta property="article:author" content="YMXL">
+<meta property="article:tag" content="SQL&amp;MySql">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gitee.com/ymxl0823/blogimg/raw/master/img/202307131353888.png">
+  
+  <meta name="referrer" content="no-referrer">
+  <!--  -->
+  
+  <title>SQL笔记 - YMXL_BLOG</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ymxl0823.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>YMXL</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="SQL笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-27 22:15" pubdate>
+          2023年4月27日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          59 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">SQL笔记</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年7月13日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="sqlstruct-query-language"><a class="markdownIt-Anchor" href="#sqlstruct-query-language"></a> SQL(Struct Query Language)</h3>
+<ul>
+<li>
+<p>结构化查询语言</p>
+</li>
+<li>
+<p>可单行或多行书写，以分号结尾</p>
+</li>
+<li>
+<p>MYSQL 数据库的SQL语句不区分大小写，关键字建议大写</p>
+</li>
+<li>
+<p>注释</p>
+<ul>
+<li>
+<p>单行注释：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- 注释内容(注意有空格) 或 #注释内容(MySql特有)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>多行注释</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">/*这是多行注释*/<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="ddl数据定义语言"><a class="markdownIt-Anchor" href="#ddl数据定义语言"></a> DDL(数据定义语言)</h4>
+<ul>
+<li>
+<p>操作数据库和表</p>
+<ol>
+<li>
+<p>查询</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SHOW DATABASES;#查询数据库<br>SHOW TABLES;#查询数据库下所有表<br>DESC 表名称;#查询表结构，显示表的具体内容<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>创建</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs mysql">#创建数据库<br>CREATE DATABASE 数据库名称;<br>#创建数据库（判断是否存在，不存在则创建）<br>CREATE DATABASE IF NOT EXISTS 数据库名称;<br>#创建表<br>CREATE TABLE 表名(<br>	字段1 数据类型1,<br>    字段2 数据类型2,<br>    ...<br>    字段n 数据类型n<br>    #注意最后一行不能加逗号（其实可以看成一个函数）<br>);<br>#创建表(判断是否存在)<br>CREATE TABLE IF NOT EXISTS 表名(<br>	字段1 数据类型1,<br>    字段2 数据类型2,<br>    ...<br>    字段n 数据类型n,<br>);<br></code></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>数据类型：mysql支持多种数据类型，可以分为三类：</p>
+<ul>
+<li>
+<p>数值</p>
+</li>
+<li>
+<p>日期</p>
+</li>
+<li>
+<p>字符串</p>
+</li>
+<li>
+<p><img src="https://gitee.com/ymxl0823/blogimg/raw/master/img/202307131353888.png" srcset="/img/loading.gif" lazyload alt="image-20230422212747333" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs mysql">#例如定义一个总长度为 5，小数点后保留2位的double<br>score doulbe(5,2)<br>#日期 只含年月日<br>birthday date<br>#定长字符串<br>name char(10)#固定保存十个字符<br>#变长字符串<br>name varchar(10)#最长只能十个字符<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/ymxl0823/blogimg/raw/master/img/202307131354141.png" srcset="/img/loading.gif" lazyload alt="image-20230422213621264" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs mysql">CREATE TABLE IF NOT EXISTS STUDENT(<br>	id int,<br>    name varchar(10),-- 还可以写注释 <br>    gender char(1),<br>    birthday date,<br>    score double(5,2),<br>    email varchar(64),<br>    tel varchar(15),<br>    status tinyinit<br>);<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>删除</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">DROP DATABASE 数据库名称;<br>DROP DATABASE IF EXISTS 数据库名称;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>使用数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mysql">#查看当前数据库<br>SELECT DATABASE();<br>#使用数据库<br>USE 数据库名称;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>修改表</p>
+<ol>
+<li>
+<p>修改表名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">ALTER TABLE 表名 RENAME TO 新的表名;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>添加一列</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">ALTER TABLE 表名 ADD 列名 数据类型;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>修改数据类型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">ALTER TABLE 表名 MODIFY 列名 数据类型; <br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>修改列名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">ALTER TABLE 表名 CHANGE 列名 新列名 新数据类型;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>删除列</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">ALTER TABLE 表名 DROP 列名;	<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="dml数据操作语言"><a class="markdownIt-Anchor" href="#dml数据操作语言"></a> DML(数据操作语言)</h4>
+<ul>
+<li>
+<p>操作数据，对表中数据进行增删改</p>
+<ol>
+<li>
+<p>添加</p>
+<ul>
+<li>
+<p>给指定列添加数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">INSERT INTO 表名(列名1,列名2,...) VALUES(值1,值2,...);<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>给全部列添加数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">INSERT INTO 表名 VALUES(值1,值2,...);#不建议这么做，建议用第一种方法，写出全部列名<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>批量添加数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">INSERT INTO 表名(列名1,列名2,...) VALUES(值1,值2,...),(值1,值2,...)...;<br>INSERT INTO 表名 VALUES(值1,值2,...),(值1,值2,...)...;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>查询</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT * FROM 表名#查询所有数据<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>修改</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">UPDATE 表名 SET 列名1=值1,列名2=值2,...[WHERE 条件];#注意：不加条件，所有行都会被修改<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>删除</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">DELETE FROM 表名 [WHERE 条件];#删除满足条件的行<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="dql数据查询语言"><a class="markdownIt-Anchor" href="#dql数据查询语言"></a> DQL(数据查询语言)</h4>
+<h5 id="单表查询"><a class="markdownIt-Anchor" href="#单表查询"></a> 单表查询</h5>
+<ul>
+<li>
+<p>操作数据，对表中数据进行查询</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT<br>	字段列表<br>FROM<br>	表名列表<br>WHERE <br>	条件列表<br>GROUP BY<br>	分组字段<br>HAVING <br>	分组后条件<br>ORDER BY<br>	排序字段<br>LIMIT<br>	分页限定<br><br></code></pre></td></tr></table></figure>
+<h5 id="基础查询"><a class="markdownIt-Anchor" href="#基础查询"></a> 基础查询</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs mysql">#查询所有<br>SELECT * FROM 表名;#不建议这么用，建议使用下面的方式，列出所有列名<br><br>#查询对应列<br>SELECT 列名1,列名2,... FROM 表名;#查询对应列<br><br>#去重查询<br>SELECT DISTINCT 列名1,列名2,... FROM 表名;<br><br>#查询时可以给列名取别名来方便理解<br>#使用 AS关键字<br>SELECT 列名1 AS 别名1,列名2 AS 别名2,... FROM 表名;<br>#也可以省略 AS 关键字，但列名与别名间保持至少一个空格<br>SELECT 列名1 别名1,列名2 别名2,... FROM 表名;<br></code></pre></td></tr></table></figure>
+<h5 id="条件查询"><a class="markdownIt-Anchor" href="#条件查询"></a> 条件查询</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT 字段列表 FROM 表名 WHERE 条件;<br>#eg.从stu表查年龄大于20 岁的信息<br>SELECT * FROM stu WHERE age &gt; 20;<br><br>#eg.从stu表查年龄大于等于20 岁的信息<br>SELECT * FROM stu WHERE age &gt;= 20;<br><br>#eg.从stu表查年龄大于等于20岁并且小于等于30岁的信息(建议使用AND)<br>SELECT * FROM stu WHERE age &gt;= 20 &amp;&amp; age &lt;= 30;<br>SELECT * FROM stu WHERE age &gt;= 20 AND age &lt;= 30;<br>SELECT * FROM stu WHERE age BETWEEN 20 AND 30;<br><br>#eg.从stu表查日期在&#x27;1998-09-01&#x27;和&#x27;1999-09-01&#x27;之间的信息<br>SELECT * FROM stu WHERE date BETWEEN &#x27;1998-09-01&#x27; AND &#x27;1999-09-01&#x27;;<br><br>#eg.从stu表查年龄等于20 岁的信息<br>SELECT * FROM stu WHERE age = 20;<br><br>#eg.从stu表查年龄不等于20 岁的信息<br>SELECT * FROM stu WHERE age != 20;<br>SELECT * FROM stu WHERE age &lt;&gt; 20;#sql里 &lt;&gt; 也表示不等<br><br>#eg.从stu表查年龄等于20或者等于30或者等于40 岁的信息<br>SELECT * FROM stu WHERE age = 20 OR age = 30 OR age = 30;# 也可以使用 || ，但不建议 <br>SELECT * FROM stu WHERE age IN (20,30,40);<br><br>#eg.从stu表查年龄为 null 的信息<br>SELECT * FROM stu WHERE age IS null;#判断是否为 null 使用 IS 或者 IS NOT关键字<br></code></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>模糊查询 使用 <code>LIKE</code>关键字</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs mysql"># _匹配单个任意字符 %匹配多个任意字符<br>#eg.查询姓张的信息<br>SELECT * FROM stu WHERE name LIKE &#x27;张%&#x27;;<br><br>#eg.查询姓名中第二个字是花的的信息<br>SELECT * FROM stu WHERE name LIKE &#x27;_花%&#x27;;<br><br>#eg.查询姓名中包含 花 的信息<br>SELECT * FROM stu WHERE name LIKE &#x27;%花%&#x27;;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="排序查询"><a class="markdownIt-Anchor" href="#排序查询"></a> 排序查询</h5>
+<ul>
+<li>
+<p>排序方式</p>
+<p>升序<code>ASC</code>(默认)</p>
+<p>降序<code>DESC</code></p>
+<p>注意：如果有多个排序条件，当前面的条件值一样时，才会根据后面的条件排序</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">#格式<br>SELECT 字段列表 FROM 表名 ORDER BY 排序字段名1 [排序方式1],排序字段名2 [排序方式2],...;<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mysql">#eg.查询学生信息，按照年龄升序排列<br>SELECT * FROM stu ORDER BY age ASC;<br>SELECT * FROM stu ORDER BY age;<br>#eg.查询学生信息，按照年龄降序排列<br>SELECT * FROM stu ORDER BY age DESC;<br>#eg.查询学生信息，按照年龄升序排列，如果年龄一样再按照成绩降序排列<br>SELECT * FROM stu ORDER BY age ASC,score DESC;<br></code></pre></td></tr></table></figure>
+<h5 id="聚合函数"><a class="markdownIt-Anchor" href="#聚合函数"></a> 聚合函数</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">#格式<br>SELECT 聚合函数(字段名) FROM 表名;#注意 null 不参与所有聚合函数运算<br></code></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>count(列名)</td>
+<td>统计数量(不统计为null的列)</td>
+</tr>
+<tr>
+<td>max(列名)</td>
+<td>最大值</td>
+</tr>
+<tr>
+<td>min(列名)</td>
+<td>最小值</td>
+</tr>
+<tr>
+<td>avg(列名)</td>
+<td>平均值</td>
+</tr>
+<tr>
+<td>sum(列名)</td>
+<td>求和</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs mysql"># eg.查学生数量<br>SELECT count(name) FROM stu;<br>#推荐使用 *<br>SELECT count(*) FROM stu;<br># eg.查最高分<br>SELECT max(score) FROM stu;<br></code></pre></td></tr></table></figure>
+<h5 id="分组查询"><a class="markdownIt-Anchor" href="#分组查询"></a> 分组查询</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs mysql">#格式<br>SELECT 字段列表 FROM 表名 [WHERE 分组前条件限定]	GROUP BY 分组字段名 [HAVING 分组后条件过滤];<br># 注意： 分组后，查询的字段为聚合函数的字段和分组字段，其他字段无效<br># where 和 having 区别 <br>	#执行时机不同：where是分组前限定，不满足条件不进行分组，having是对分组后的数据进行限定<br>	#可判断条件不同：where不能对聚合函数进行判断，having可以 <br># 执行顺序<br>	# where -&gt; 聚合函数 -&gt; having<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs mysql">#eg. 查询男同学和女同学各自的平均分<br>SELECT avg(score) FROM stu GROUP BY gender;<br>#这样仅能看到 平均分，不能清晰的看到平均分属于谁，所以一般会像下面这样写<br>SELECT gender,avg(score) FROM stu GROUP BY gender;<br># 注意： 分组后，查询的字段为聚合函数的字段和分组字段，其他字段意义<br><br>#eg. 查询男同学和女同学各自的平均分，以及各自的人数<br>SELECT gender,avg(score),count(*) FROM stu GROUP BY gender;<br><br>#eg. 查询男同学和女同学各自的平均分，以及各自的人数，要求：分数低于70的不参与分组<br>SELECT gender,avg(score),count(*) FROM stu WHERE score &gt;= 70 GROUP BY gender;<br><br>#eg. 查询男同学和女同学各自的平均分，以及各自的人数，要求：分数低于70的不参与分组，分组之后人数大于20<br>SELECT gender,avg(score),count(*) FROM stu WHERE score &gt;= 70 GROUP BY gender HAVING count(*) &gt;= 20;<br></code></pre></td></tr></table></figure>
+<h5 id="分页查询"><a class="markdownIt-Anchor" href="#分页查询"></a> 分页查询</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">#格式<br>SELECT 字段列表 FROM 表名 LIMIT 起始索引，查询条目;#索引是从0开始的<br></code></pre></td></tr></table></figure>
+<p>计算公式<code>起始索引 = (当前页码-1)*每页显示的条数</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs mysql"># eg.从0开始查询，查询3条数据<br>SELECT * FROM stu LIMIT 0,3;<br><br># eg.每页显示3条数据，查询第1页的数据<br>SELECT * FROM stu LIMIT 0,3;<br><br># eg.每页显示3条数据，查询第2页的数据<br>SELECT * FROM stu LIMIT 3,3;<br><br># eg.每页显示3条数据，查询第3页的数据<br>SELECT * FROM stu LIMIT 6,3;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="多表查询"><a class="markdownIt-Anchor" href="#多表查询"></a> 多表查询</h5>
+<h4 id="dcl数据控制语言"><a class="markdownIt-Anchor" href="#dcl数据控制语言"></a> DCL(数据控制语言)</h4>
+<ul>
+<li>对数据库进行权限控制</li>
+</ul>
+<h3 id="数据库"><a class="markdownIt-Anchor" href="#数据库"></a> 数据库</h3>
+<h4 id="约束"><a class="markdownIt-Anchor" href="#约束"></a> 约束</h4>
+<h5 id="约束的概念"><a class="markdownIt-Anchor" href="#约束的概念"></a> 约束的概念</h5>
+<ul>
+<li>约束是作用于表上的规则，用于限制加入表中的数据</li>
+<li>约束的存在保证了数据库中数据的正确性，有效性和完整性</li>
+</ul>
+<h5 id="约束的分类"><a class="markdownIt-Anchor" href="#约束的分类"></a> 约束的分类</h5>
+<table>
+<thead>
+<tr>
+<th>约束名称</th>
+<th>描述</th>
+<th style="text-align:center">关键字</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>非空约束</td>
+<td>保证列中所有数据不能有ｎｕｌｌ值</td>
+<td style="text-align:center">NOT NULL</td>
+</tr>
+<tr>
+<td>唯一约束</td>
+<td>保证列中所有数据各不相同</td>
+<td style="text-align:center">UNIQUE</td>
+</tr>
+<tr>
+<td>主键约束</td>
+<td>主键是一行数据的唯一表示，要求非空且唯一</td>
+<td style="text-align:center">PRIMARY KEY</td>
+</tr>
+<tr>
+<td>检查约束</td>
+<td>保证列中数据满足某一条件</td>
+<td style="text-align:center">CHECK</td>
+</tr>
+<tr>
+<td>默认约束</td>
+<td>保存数据时，未指定值则采用默认值</td>
+<td style="text-align:center">DEFAULT</td>
+</tr>
+<tr>
+<td>外键约束</td>
+<td>外键用来让两个表的数据之间建立链接，保证数据的一致性和完整性</td>
+<td style="text-align:center">FOREIGN KEY</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意：Mysql不支持检查约束</strong></p>
+<h5 id="案例"><a class="markdownIt-Anchor" href="#案例"></a> 案例</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs mysql">#员工表<br>CREATE TABLE IF NOT EXISTS emp(<br>	id INT PRIMARY, -- 员工id,主键且自增长<br>    ename VARCHAR(50) NOT NULL UNIQUE, -- 员工姓名，非空且唯一<br>    joindate DATE NOT NULL, -- 入职日期，非空<br>    salary DOUBLE(7,2) NOT NULL, -- 薪资，非空<br>    bonus DOUBLE(7,2) DEFAULT 0 -- 奖金，如果没有就默认为零<br>);<br></code></pre></td></tr></table></figure>
+<h5 id="外键约束"><a class="markdownIt-Anchor" href="#外键约束"></a> 外键约束</h5>
+<ul>
+<li>
+<p>概念</p>
+<ul>
+<li>
+<p>外键用来让两个表的数据之间建立链接，保证数据一致性和完整性</p>
+</li>
+<li>
+<p>例如：</p>
+<p><img src="https://gitee.com/ymxl0823/blogimg/raw/master/img/202307131355182.png" srcset="/img/loading.gif" lazyload alt="image-20230424170918074" /></p>
+</li>
+</ul>
+</li>
+</ul>
+<p>这两张表的部门id时相关的，即员工表的dep_id和部门表的id相关</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- 现在需要删除研发部，则需将两张表链接起来，删除研发部同时，删除属于研发部的员工，才符合逻辑需求。这时就要用到外键约束<br></code></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>语法</p>
+<ul>
+<li>添加约束</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- 创建表时添加外键约束<br>CREATE TABLE 表名(<br>	列名 数据类型,<br>    ...<br>    [CONSTRAINT] [外键名称] FOREIGN KEY (外键列名) REFERENCES 主表(主表列名)<br>);<br><br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- 建完表后添加外键约束<br>ALTER 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY(外键列名) REFERENCES 主表(主表列名); <br></code></pre></td></tr></table></figure>
+<p>一般创建外键时，被引用的表我们称为主表（上述例子中的部门表），创键的那张表被称为从表（上述例子中的员工表）</p>
+<ul>
+<li>删除约束</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">ALTER 表名 DROP FOREIGN KEY 外键名称;<br></code></pre></td></tr></table></figure>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- 部门表<br>CREATE TABLE IF NOT EXISTS dept(<br>	id int primary key auto_increment,<br>    dep_name varchar(20),<br>    addr varchar(20)<br>);<br>-- 员工表<br>CREATE TABLE IF NOT EXISTS emp(<br>	id int primary key auto_increment,<br>    name varchar(20),<br>    age int,<br>    dep_id int,<br>    -- 添加外键约束，将dep_id与表dept的id关联<br>    CONSTRAINT fk_emp_dept FOREIGN KEY(dep_id) REFERENCES dept(id)<br>    -- 这种方式需要先创建主表，添加数据时同理即得让主表有这个外键<br>    -- 由于这种外键约束，删除数据时，则是先删除从表的数据，才可删除主表的数据<br>);<br><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="数据库设计"><a class="markdownIt-Anchor" href="#数据库设计"></a> 数据库设计</h4>
+<h5 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h5>
+<p>根据需求建立数据库中的表结构和表之间的关系的过程</p>
+<ul>
+<li>步骤
+<ul>
+<li>需求分析</li>
+<li>逻辑分析</li>
+<li>物理设计</li>
+<li>维护设计</li>
+</ul>
+</li>
+</ul>
+<h5 id="一对多多对一"><a class="markdownIt-Anchor" href="#一对多多对一"></a> 一对多（多对一）</h5>
+<p>如: 员工和部门</p>
+<p>一个部门可以有多个员工，但一个员工只能属于一个部门</p>
+<ul>
+<li>
+<p>实现方式</p>
+<p>在 “多” 的一方建立外键，并和 “一” 的一方的主键链接</p>
+</li>
+</ul>
+<h5 id="多对多"><a class="markdownIt-Anchor" href="#多对多"></a> 多对多</h5>
+<p>如：商品和订单</p>
+<p>一个商品可以有多个订单，一个订单也可以包含多个商品</p>
+<ul>
+<li>
+<p>实现方式</p>
+<p>建立一个中间表，在中间表建两个外键来链接两张表的主键</p>
+<p><img src="https://gitee.com/ymxl0823/blogimg/raw/master/img/202307131403257.png" srcset="/img/loading.gif" lazyload alt="image-20230425103709512" /></p>
+</li>
+</ul>
+<h5 id="一对一"><a class="markdownIt-Anchor" href="#一对一"></a> 一对一</h5>
+<p>如：用户和用户详情</p>
+<p>一对一关系多用于对表的拆分，将不常用的信息分离出来，提升查询性能</p>
+<ul>
+<li>
+<p>实现方式</p>
+<p>在一方建立外键链接另一方的主键，并设置外键唯一（UNIQUE）;</p>
+</li>
+</ul>
+<h4 id="多表查询-2"><a class="markdownIt-Anchor" href="#多表查询-2"></a> 多表查询</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs mysql">CREATE TABLE emp(<br>	id INT PRIMARY KEY AUTO_INCREMENT,<br>    name VARCHAR(20),<br>    dep_id INT,<br>    CONSTRAINT emp_dept_key FOREIGN KEY(dep_id) REFERENCES dept(did)<br>);<br>CREATE TABLE dept(<br>	did INT PRIMARY KEY AUTO_INCREMENT,<br>    dname VARCHAR(20)<br>);<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT * FORM emp,dept;<br>-- 此时查询的是两个表的笛卡尔积，即两张表的数据的所有组合，若 两张表分别有n,m条数据，则会查出来n*m条数据<br></code></pre></td></tr></table></figure>
+<p>因此在做多表查询时需要依据他们之间的逻辑关系查</p>
+<p><img src="https://gitee.com/ymxl0823/blogimg/raw/master/img/202307131403184.png" srcset="/img/loading.gif" lazyload alt="image-20230425110848435" /></p>
+<ul>
+<li>
+<p>连接查询</p>
+<ul>
+<li>
+<p>内连接：查询两个集合的交集</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- 隐式内连接<br>SELECT 字段列表 FROM 表1,表2,... WHERE 条件;<br>-- 显示内连接<br>SELECT 字段列表 FROM 表1 [INNER] JOIN 表2 ON 条件;· <br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT * FROM emp,dept WHERE emp.dep_id = dept.did;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>外连接：</p>
+<p>左外连接：查询A表和交集的所有数据（A表所有+B表符合条件的）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT 字段列表 FROM 表1 LEFT [OUTER] JOIN 表2 ON 条件;<br></code></pre></td></tr></table></figure>
+<p>右外连接：查询B表和交集的所有数据（同理）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT 字段列表 FROM 表1 RIGHT [OUTER] JOIN 表2 ON 条件<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>子查询</p>
+<p>查询中嵌套查询，称嵌套查询为子查询</p>
+<p>子查询根据结果不同，作用不同</p>
+<ul>
+<li>单行单列</li>
+<li>多行单列</li>
+<li>多行多列</li>
+</ul>
+</li>
+</ul>
+<h4 id="事务"><a class="markdownIt-Anchor" href="#事务"></a> 事务</h4>
+<h5 id="简介-2"><a class="markdownIt-Anchor" href="#简介-2"></a> 简介</h5>
+<ul>
+<li>
+<p>数据库的<strong>事务</strong>(Transaction)是一种机制、一个操作序列，包含了<strong>一组数据库操作命令</strong></p>
+</li>
+<li>
+<p>事务把所有的命令作为一个整体，一起向系统提交或撤销操作请求，即这一组数据库命令要么<strong>同时成功</strong>，要么<strong>同时失败</strong></p>
+</li>
+<li>
+<p>事务是一个不可分割的工作逻辑单元</p>
+</li>
+</ul>
+<p>例：张三给李四转五百需要有以下操作</p>
+<pre><code class="hljs">	* 查询张三余额
+	* 张三余额 -500
+	* 李四余额 +500
+</code></pre>
+<p>这些操作要求同时进行，要么同时成功，要么同时失败，要是在中间出现异常，则会撤销事务（回滚事务）。</p>
+<h5 id="操作"><a class="markdownIt-Anchor" href="#操作"></a> 操作</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- 开启事务<br>START TRANSACTION;<br>或者 BEGIN;<br>--提交 <br>COMMIT;<br>--回滚<br>ROLLBACK;<br></code></pre></td></tr></table></figure>
+<h5 id="四大特征"><a class="markdownIt-Anchor" href="#四大特征"></a> 四大特征</h5>
+<ul>
+<li>原子性（Atomicity）事务是不可分割的最小的操作单位，要么同时成功，要么同时失败</li>
+<li>一致性（Consistency）事务完成时，必须使所有数据保持一致状态</li>
+<li>隔离性（Isolation）多个事务之间，操作的可见性</li>
+<li>持久性（Durability）事务一旦提交或回滚，它对数据库中的数据的改变是永久的</li>
+</ul>
+<h5 id="mysql事务默认自动提交"><a class="markdownIt-Anchor" href="#mysql事务默认自动提交"></a> MySql事务默认自动提交</h5>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- 查看事务的默认提交方式<br>SELECT @@autocommit;<br><br>-- 1 自动提交 0 手动提交<br>-- 修改事务提交方式<br>set @@autocommit = 0;<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/SQL-MySql/" class="print-no-link">#SQL&MySql</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>SQL笔记</div>
+      <div>http://ymxl0823.github.io/2023/04/27/SQL笔记/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>YMXL</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/05/03/Mex-Tree/" title="Mex Tree">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Mex Tree</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/26/%E5%80%8D%E5%A2%9Elca/" title="倍增lca">
+                        <span class="hidden-mobile">倍增lca</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
